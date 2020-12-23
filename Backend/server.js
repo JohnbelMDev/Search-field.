@@ -24,12 +24,31 @@ const mongoose = require('mongoose')
 
 const config = require('config')
 const db = config.get('mongoURI')
+const MongoClient = require('mongodb').MongoClient;
+
 const urlModel = require('./urlModel/urlModel.js')
 const cors = require('cors')
 // console.log('dbconnect', db);
 app.use(cors())
-mongoose.connect(db, {
-  useNewUrlParser: true
+MongoClient.connect(db,{useNewUrlParser: true}, function(err, client) {
+  // assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  const database = client.db('Search');
+  app.get('/test', function(req, res) {
+
+    database.collection('Search').find().toArray((err,result) => {
+   if(err){
+     console.log('error',err);
+   }
+console.log(result)
+
+})
+
+  });
+
+  client.close();
+
 });
 
 //
@@ -54,53 +73,12 @@ mongoose.connect(db, {
 //     console.log('hello',url);
 // });
 
-app.post('/test', function(req, res) {
-  // const urltest = new urlModel(req.body)
-    // urltest.save( (err,result) => {
-    // if(err) console.log(err);
-    // else {
-    //   console.log(result);
-    // }
-    // })
-    shortUrl.short(req.body.url, function(err, url){
-      const urltest = new urlModel({
-        url:req.body.url,
-        shortenUrl:url
-      })
-      urltest.save( (err,result) => {
-      if(err) console.log(err);
-      else {
-        console.log(result);
-        res.json({shortUrl:url})
-
-      }
-      })
-        console.log('hello',url);
-    });
-  console.log('hello',req.body);
-
-
-});
-
-
-
-// app.get('/test4', (req, res) => {
-//     res.send("hey");
-//     console.log('route found');
+// app.get('/test', function(req, res) {
+//
+//   database.collection('Search').find({},(err,result) => console.log(result))
+//
 // });
 
 
-// const connectDB = async () => {
-//   try {
-//     await mongoose.connect(db, {
-//
-//       useNewUrlParser: true
-//     });
-//     console.log('Mongodb Connected');
-//   } catch (err) {
-//     console.error(err.message)
-//     process.exit(1)
-//   }
-// }
 
 app.listen(PORT, () => console.log(`Server runiing on port ${PORT}`))
