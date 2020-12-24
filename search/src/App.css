@@ -6,7 +6,41 @@
   height: 40vmin;
   pointer-events: none;
 }
+ul li{
+  list-style-type: none;
+  color:none;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
 
+input{
+  width: 40%;
+  height:2rem;
+  text-align: center;
+  margin-top: 15%;
+  border-radius: 25px;
+  border: 0px solid gray;
+  box-shadow: 2px 4px 1px 0 rgba(0, 0, 0, 0.5), 0 6px 40px 0 rgba(0, 0, 0, 0.0);
+}
+button{
+  margin-top: 3%;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 2px 4px 1px 0 rgba(0, 0, 0, 0.5), 0 6px 40px 0 rgba(0, 0, 0, 0.0);
+
+}
+img{
+  width:5%;
+  height: 4rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

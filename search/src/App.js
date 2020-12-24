@@ -6,9 +6,9 @@ import Search from './Search.js';
 function App() {
   return (
     <div className="App">
-    <Search />
+    <Search id='search'/>
 
-    
+
     </div>
   );
 }
